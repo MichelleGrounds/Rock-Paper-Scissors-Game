@@ -1,10 +1,9 @@
-// winning condition:
-// rock beats scissors
-// scissors beat paper
-// paper beats rock
-//
 // counting tally of wins at the bottom
 // computer vs human
+//chris mode config object? which has scores on it and whether chris mode has been activated
+//use config object and use chris mode in my function
+//if it has been activated hard code return rock for computer choice
+
 
 var rock = {
   min: 0,
@@ -59,13 +58,9 @@ function rockPaperScissorGame(randomNumber){
 }
 
 function didPunyHumanWinOrNot(computerChoice, humanChoice){
-  if(computerChoice == "rock" && humanChoice == "paper"){
-    return "You win!!!"
-  }
-  if(computerChoice == "scissors" && humanChoice == "rock"){
-    return "You win!!!"
-  }
-  if(computerChoice == "paper" && humanChoice == "scissors"){
+  if((computerChoice == "rock" && humanChoice == "paper")
+    || (computerChoice == "scissors" && humanChoice == "rock")
+    || (computerChoice == "paper" && humanChoice == "scissors")){
     return "You win!!!"
   }
   if(computerChoice == humanChoice){
@@ -73,8 +68,6 @@ function didPunyHumanWinOrNot(computerChoice, humanChoice){
   }
   return "You lose!"
 }
-
-
 //
 //
 // module.exports = { rockPaperScissorGame, didPunyHumanWinOrNot }
