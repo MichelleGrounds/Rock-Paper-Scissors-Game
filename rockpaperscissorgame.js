@@ -31,20 +31,60 @@ var scores = {
   computer: 0
 }
 
+var winningCombinations = {
+  rock: "scissors",
+  paper: "rock",
+  scissors: "paper"
+}
+
+var endOfGameMessages = {
+  win: "You win!!!",
+  lose: "You lose!",
+  tie: "It's a tie."
+}
+
+
+var chrisModeActivated = false
+
+function activateChrisMode(){
+  var chrisModeActivationButton = document.getElementById("activateChrisModeButton")
+  chrisModeActivationButton.onlick = changeChrisModeStatus();
+}
+
+function changeChrisModeStatus(){
+  if (chrisModeActivated == false){
+    chrisModeActivated = true
+  } else if(chrisModeActivated == true){
+    chrisModeActivated = false
+  }
+}
+
 function processPunyHumansClick(event){
   var randomNumber = Math.random();
   var resultGame = rockPaperScissorGame(randomNumber)
-  console.log(resultGame);
+
+  if(chrisModeActivated == true){
+  resultGame = rock
+  }
+
   document.getElementById('computerImage').style.backgroundImage = "url(" + resultGame.image + ")"
 
   var computerChoice = resultGame.name
   var humanChoice = event.id
 
-  var winningMessage = didPunyHumanWinOrNot(computerChoice, humanChoice)
-  console.log(winningMessage);
+  var resultMessage = didPunyHumanWinOrNot(computerChoice, humanChoice)
 
-  document.getElementById("winningMessage").innerHTML = winningMessage
+  document.getElementById("resultMessage").innerHTML = resultMessage
 
+  if(resultMessage == endOfGameMessages.win){
+    scores.human++
+  } else if(resultMessage == endOfGameMessages.lose){
+    scores.computer++
+    }
+
+  console.log(scores.human);
+  console.log(scores.computer);
+  var tallyScore = document.getElementById("tallyOfScores").innerHTML = "Human Score: " + scores.human + " Computer Score: " + scores.computer
 }
 
 function rockPaperScissorGame(randomNumber){
@@ -61,13 +101,14 @@ function didPunyHumanWinOrNot(computerChoice, humanChoice){
   if((computerChoice == "rock" && humanChoice == "paper")
     || (computerChoice == "scissors" && humanChoice == "rock")
     || (computerChoice == "paper" && humanChoice == "scissors")){
-    return "You win!!!"
+    return endOfGameMessages.win
   }
   if(computerChoice == humanChoice){
-    return "It's a tie."
+    return endOfGameMessages.tie
   }
-  return "You lose!"
+  return endOfGameMessages.lose
 }
+
 //
 //
 // module.exports = { rockPaperScissorGame, didPunyHumanWinOrNot }
