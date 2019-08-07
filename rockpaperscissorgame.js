@@ -1,10 +1,3 @@
-// counting tally of wins at the bottom
-// computer vs human
-//chris mode config object? which has scores on it and whether chris mode has been activated
-//use config object and use chris mode in my function
-//if it has been activated hard code return rock for computer choice
-
-
 var rock = {
   min: 0,
   max: 0.33,
