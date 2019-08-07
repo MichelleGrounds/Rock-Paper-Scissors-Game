@@ -36,52 +36,39 @@ var endOfGameMessages = {
   tie: "It's a tie."
 }
 
-
 var chrisModeActivated = false
 
-function activateChrisMode(){
-  var chrisModeActivationButton = document.getElementById("activateChrisModeButton")
-  chrisModeActivationButton.onlick = changeChrisModeStatus();
-}
-
 function changeChrisModeStatus(){
-  if (chrisModeActivated == false){
-    chrisModeActivated = true
-  } else if(chrisModeActivated == true){
-    chrisModeActivated = false
-  }
+  chrisModeActivated = !chrisModeActivated
 }
 
 function processPunyHumansClick(event){
   var randomNumber = Math.random();
   var resultGame = rockPaperScissorGame(randomNumber)
 
-  if(chrisModeActivated == true){
-  resultGame = rock
+  if (chrisModeActivated){
+    resultGame = rock
   }
-
-  document.getElementById('computerImage').style.backgroundImage = "url(" + resultGame.image + ")"
 
   var computerChoice = resultGame.name
   var humanChoice = event.id
 
   var resultMessage = didPunyHumanWinOrNot(computerChoice, humanChoice)
 
+  if (resultMessage == endOfGameMessages.win){
+    scores.human++;
+  } else if (resultMessage == endOfGameMessages.lose){
+    scores.computer++;
+  }
+
+  document.getElementById('computerImage').style.backgroundImage = "url(" + resultGame.image + ")"
   document.getElementById("resultMessage").innerHTML = resultMessage
-
-  if(resultMessage == endOfGameMessages.win){
-    scores.human++
-  } else if(resultMessage == endOfGameMessages.lose){
-    scores.computer++
-    }
-
-  console.log(scores.human);
-  console.log(scores.computer);
-  var tallyScore = document.getElementById("tallyOfScores").innerHTML = "Human Score: " + scores.human + " Computer Score: " + scores.computer
+  document.getElementById("humanScore").innerHTML = "Human Score: " + scores.human
+  document.getElementById("computerScore").innerHTML = "Computer Score: " + scores.computer
 }
 
 function rockPaperScissorGame(randomNumber){
-  if(randomNumber >= rock.min && randomNumber <= rock.max){
+  if (randomNumber >= rock.min && randomNumber <= rock.max){
     return rock
   } else if (randomNumber > paper.min && randomNumber <= paper.max){
     return paper
@@ -96,12 +83,10 @@ function didPunyHumanWinOrNot(computerChoice, humanChoice){
     || (computerChoice == "paper" && humanChoice == "scissors")){
     return endOfGameMessages.win
   }
-  if(computerChoice == humanChoice){
+  if (computerChoice == humanChoice){
     return endOfGameMessages.tie
   }
   return endOfGameMessages.lose
 }
 
-//
-//
-// module.exports = { rockPaperScissorGame, didPunyHumanWinOrNot }
+// module.exports = { rockPaperScissorGame, didPunyHumanWinOrNot, processPunyHumansClick }
