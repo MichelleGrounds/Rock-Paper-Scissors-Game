@@ -1,3 +1,4 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var rock = {
   min: 0,
   max: 0.33,
@@ -42,17 +43,13 @@ function changeChrisModeStatus(){
   chrisModeActivated = !chrisModeActivated
 }
 
-function resetScores(){
-  scores.human = 0;
-  scores.computer = 0;
-  document.getElementById("humanScore").innerHTML = "Human Score: " + scores.human
-  document.getElementById("computerScore").innerHTML = "Computer Score: " + scores.computer
-}
-
 function processPunyHumansClick(event){
   var randomNumber = Math.random();
+  var resultGame = rockPaperScissorGame(randomNumber)
 
-  var resultGame = chrisModeActivated ? rock : rockPaperScissorGame(randomNumber)
+  if (chrisModeActivated){
+    resultGame = rock
+  }
 
   var computerChoice = resultGame.name
   var humanChoice = event.id
@@ -93,4 +90,6 @@ function didPunyHumanWinOrNot(computerChoice, humanChoice){
   return endOfGameMessages.lose
 }
 
-// module.exports = { rockPaperScissorGame, didPunyHumanWinOrNot, processPunyHumansClick }
+module.exports = { rockPaperScissorGame, didPunyHumanWinOrNot, processPunyHumansClick }
+
+},{}]},{},[1]);
